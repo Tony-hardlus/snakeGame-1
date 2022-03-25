@@ -8,7 +8,14 @@ import random
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
+#ARCR: Arrays y random integrados para el cambio de colores 
 
+colorsSnake = ['blue','green','purple','black','pink']
+colorFood = ['brown','skyblue','darkblue','turqouise','orange']
+colorOpSnake = random.randrange(0,5,1)
+colorOpFood = random.randrange(0,2,1)
+randcolorFood = colorFood[colorOpFood]
+randcolorSnake = colorsSnake[colorOpSnake]
 
 def change(x, y):
     """Change snake direction."""
@@ -45,8 +52,9 @@ def move():
 
     for body in snake:
     # VRDL: Se cambió color de comida
-        square(body.x, body.y, 9, 'green')
-    square(food.x, food.y, 9, 'red')
+    #ARCR: Se cambio definicion de colores para volverlo aleatorio cada vez que se inicia el juego
+        square(body.x, body.y, 9, randcolorSnake)
+    square(food.x, food.y, 9, randcolorFood)
     # VRDL: para mover la comida:
     moveFood = [10,-10]
     rand1 = random.randint(0,1) # VRDL: (x,y)
