@@ -1,17 +1,9 @@
-"""Snake, classic arcade game.
-
-Exercises
-
-1. How do you make the snake faster or slower?
-2. How can you make the snake go around the edges?
-3. How would you move the food?
-4. Change the snake to respond to mouse clicks.
-"""
 
 from random import randrange
 from turtle import *
-
 from freegames import square, vector
+#VRDL: Se importó librería para su uso en la función movefood()
+import random
 
 food = vector(0, 0)
 snake = [vector(10, 0)]
@@ -35,7 +27,8 @@ def move():
     head.move(aim)
 
     if not inside(head) or head in snake:
-        square(head.x, head.y, 9, 'red')
+        # VRDL: Se cambió el color a "black"
+        square(head.x, head.y, 9, 'black')
         update()
         return
 
@@ -51,9 +44,28 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+    # VRDL: Se cambió color de comida
+        square(body.x, body.y, 9, 'green')
+    square(food.x, food.y, 9, 'red')
+    # VRDL: para mover la comida:
+    moveFood = [10,-10]
+    rand1 = random.randint(0,1) # VRDL: (x,y)
+    rand2 = random.randint(0,1) #up/down right/left
+    # --- Se delimitan bordes con condicionales---
+    if rand1==0 and food.x>=-190 and food.x<=180: 
+        food.x+=moveFood[rand2]
+    elif rand1==0 and food.x<-190:
+        food.x=-190
+    elif rand1==0 and food.x>180:
+        food.x=180
 
-    square(food.x, food.y, 9, 'green')
+    if rand1==1 and food.y>=-190 and food.y<=180:
+        food.y+=moveFood[rand2]
+    elif rand1==1 and food.y<-190:
+        food.y=-190
+    elif rand1==1 and food.y>180:
+        food.y=180
+
     update()
     ontimer(move, 100)
 
@@ -68,3 +80,4 @@ onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
 move()
 done()
+
